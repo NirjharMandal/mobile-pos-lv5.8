@@ -1,0 +1,22 @@
+[10-Nov-2021 07:16:24 America/New_York] PHP Fatal error:  Uncaught Error: Undefined constant 'CRYPTO_AEAD_CHACHA20POLY1305_IETF_ABYTES' in /home/glorwynp/pos.gloriousit.net/vendor/paragonie/sodium_compat/lib/constants.php:24
+Stack trace:
+#0 /home/glorwynp/pos.gloriousit.net/vendor/paragonie/sodium_compat/lib/sodium_compat.php(825): require_once()
+#1 /home/glorwynp/pos.gloriousit.net/vendor/paragonie/sodium_compat/autoload.php(51): require_once('/home/glorwynp/...')
+#2 /home/glorwynp/pos.gloriousit.net/vendor/composer/autoload_real.php(69): require('/home/glorwynp/...')
+#3 /home/glorwynp/pos.gloriousit.net/vendor/composer/autoload_real.php(59): composerRequirebb58fedb7a6b4524f4bd2f6dcfabef31('3109cb1a231dcd0...', '/home/glorwynp/...')
+#4 /home/glorwynp/pos.gloriousit.net/vendor/autoload.php(7): ComposerAutoloaderInitbb58fedb7a6b4524f4bd2f6dcfabef31::getLoader()
+#5 /home/glorwynp/pos.gloriousit.net/bootstrap/autoload.php(17): require('/home/glorwynp/...')
+#6 /home/glorwynp/pos.gloriousit.net/public/index.php(22): require('/home/glorwynp/...')
+#7 {main}
+  thrown in /home/glorwynp/pos.gloriousit.net/vendor/paragonie/sodium_compat/lib/constants.php on line 24
+[13-Nov-2021 04:20:49 America/New_York] PHP Fatal error:  Uncaught Error: Undefined constant 'CRYPTO_AEAD_CHACHA20POLY1305_IETF_ABYTES' in /home/glorwynp/pos.gloriousit.net/vendor/paragonie/sodium_compat/lib/constants.php:24
+Stack trace:
+#0 /home/glorwynp/pos.gloriousit.net/vendor/paragonie/sodium_compat/lib/sodium_compat.php(825): require_once()
+#1 /home/glorwynp/pos.gloriousit.net/vendor/paragonie/sodium_compat/autoload.php(51): require_once('/home/glorwynp/...')
+#2 /home/glorwynp/pos.gloriousit.net/vendor/composer/autoload_real.php(69): require('/home/glorwynp/...')
+#3 /home/glorwynp/pos.gloriousit.net/vendor/composer/autoload_real.php(59): composerRequirebb58fedb7a6b4524f4bd2f6dcfabef31('3109cb1a231dcd0...', '/home/glorwynp/...')
+#4 /home/glorwynp/pos.gloriousit.net/vendor/autoload.php(7): ComposerAutoloaderInitbb58fedb7a6b4524f4bd2f6dcfabef31::getLoader()
+#5 /home/glorwynp/pos.gloriousit.net/bootstrap/autoload.php(17): require('/home/glorwynp/...')
+#6 /home/glorwynp/pos.gloriousit.net/public/index.php(22): require('/home/glorwynp/...')
+#7 {main}
+  thrown in /home/glorwynp/pos.gloriousit.net/vendor/paragonie/sodium_compat/lib/constants.php on line 24
