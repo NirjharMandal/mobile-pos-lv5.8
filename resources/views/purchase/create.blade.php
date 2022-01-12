@@ -152,7 +152,7 @@
 			</div>
 			<div class="col-sm-2">
 				<div class="form-group">
-					<button tabindex="-1" type="button" class="btn btn-link btn-modal"data-href="{{action('ProductController@quickAdd')}}" 
+					<button tabindex="-1" type="button" class="btn btn-link btn-modal" data-href="{{action('ProductController@quickAdd')}}"
             	data-container=".quick_add_product_modal"><i class="fa fa-plus"></i> @lang( 'product.add_new_product' ) </button>
 				</div>
 			</div>
@@ -356,8 +356,8 @@
 @endsection
 
 @section('javascript')
-	<script src="{{ asset('js/purchase.js?v=' . $asset_v) }}"></script>
-	<script src="{{ asset('js/product.js?v=' . $asset_v) }}"></script>
+	<script type="text/javascript" src="{{ asset('js/purchase.js') }}"></script>
+	<script src="{{ asset('js/product.js') }}"></script>
 	<script type="text/javascript">
 		$(document).ready( function(){
       		__page_leave_confirmation('#add_purchase_form');

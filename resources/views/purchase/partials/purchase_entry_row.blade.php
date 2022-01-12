@@ -66,10 +66,9 @@
         </td>
 
         <td>
-            
             <div class="imei">
-                <div><input type="text" name="[imei1][{{$product->id}}][]"  placeholder="IMEI 1"></div>
-                <div><input type="text" name="[imei2][{{$product->id}}][]"  placeholder="IMEI 2"></div>
+                <div><input type="text" name="imei1[{{$product->id}}][]"  placeholder="IMEI 1"></div>
+                <div><input type="text" name="imei2[{{$product->id}}][]"  placeholder="IMEI 2"></div>
             </div>
         </td>
         

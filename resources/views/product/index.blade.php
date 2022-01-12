@@ -57,12 +57,17 @@
             </div>
         </div>
         <div class="col-md-3">
-            <br>
             <div class="form-group">
+                {!! Form::label('active_state',  __('purchase.purchase_status') . ':') !!}
                 {!! Form::select('active_state', ['active' => __('business.is_active'), 'inactive' => __('lang_v1.inactive')], null, ['class' => 'form-control select2', 'style' => 'width:100%', 'id' => 'active_state', 'placeholder' => __('lang_v1.all')]); !!}
             </div>
         </div>
-
+            <div class="col-md-3">
+                <div class="form-group">
+                    {!! Form::label('imei_number',  __('purchase.imei_number') . ':') !!}
+                    {!! Form::text('imei_number', null, ['class' => 'form-control', 'placeholder' => __('purchase.imei_number')]); !!}
+                </div>
+            </div>
         <!-- include module filter -->
         @if(!empty($pos_module_data))
             @foreach($pos_module_data as $key => $value)
@@ -173,6 +178,7 @@
                         d.active_state = $('#active_state').val();
                         d.not_for_selling = $('#not_for_selling').is(':checked');
                         d.location_id = $('#location_id').val();
+                        d.imei_number = $('#imei_number').val();
                         if ($('#repair_model_id').length == 1) {
                             d.repair_model_id = $('#repair_model_id').val();
                         }
@@ -388,6 +394,15 @@
                         stock_report_table.ajax.reload();
                     }
             });
+            $(document).on('blur', '#imei_number', function() {
+                    if ($("#product_list_tab").hasClass('active')) {
+                        product_table.ajax.reload();
+                    }
+
+                    if ($("#product_stock_report").hasClass('active')) {
+                        stock_report_table.ajax.reload();
+                    }
+                });
 
             $(document).on('ifChanged', '#not_for_selling, #woocommerce_enabled', function(){
                 if ($("#product_list_tab").hasClass('active')) {

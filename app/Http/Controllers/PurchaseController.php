@@ -288,7 +288,7 @@ class PurchaseController extends Controller
             abort(403, 'Unauthorized action.');
         }
         
-        // dd($request->all());
+         //dd($request->all());
 
         try {
             $business_id = $request->session()->get('user.business_id');

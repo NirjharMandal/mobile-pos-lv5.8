@@ -65,6 +65,7 @@ class ProductController extends Controller
         $selling_price_group_count = SellingPriceGroup::countSellingPriceGroups($business_id);
 
         if (request()->ajax()) {
+            DB::enableQueryLog();
             $query = Product::with(['media'])
                 ->leftJoin('brands', 'products.brand_id', '=', 'brands.id')
                 ->join('units', 'products.unit_id', '=', 'units.id')
@@ -73,6 +74,7 @@ class ProductController extends Controller
                 ->leftJoin('tax_rates', 'products.tax', '=', 'tax_rates.id')
                 ->join('variations as v', 'v.product_id', '=', 'products.id')
                 ->leftJoin('variation_location_details as vld', 'vld.variation_id', '=', 'v.id')
+                ->leftJoin('imeis', 'products.id', '=', 'imeis.product_id')
                 ->where('products.business_id', $business_id)
                 ->where('products.type', '!=', 'modifier');
 
@@ -169,7 +171,19 @@ class ProductController extends Controller
             if (!empty(request()->get('repair_model_id'))) {
                 $products->where('products.repair_model_id', request()->get('repair_model_id'));
             }
-
+    
+            $imei_number = request()->get('imei_number');
+            if (!empty($imei_number)) {
+                $products->where(function($condition) use ($imei_number){
+                    $condition->where('imei1', 'like', "%{$imei_number}%");
+                    $condition->orWhere('imei2', 'like', "%{$imei_number}%");
+//                    $condition->where('imei1', "{$imei_number}");
+//                    $condition->orWhere('imei2', "{$imei_number}");
+                });
+            }
+            //$products->get();
+            //dd(DB::getQueryLog());
+    
             return Datatables::of($products)
                 ->addColumn(
                     'product_locations',
@@ -1280,7 +1294,6 @@ class ProductController extends Controller
         $categories = Category::forDropdown($business_id, 'product');
         $brands = Brands::forDropdown($business_id);
         $units = Unit::forDropdown($business_id, true);
-
         $tax_dropdown = TaxRate::forBusinessDropdown($business_id, true, true);
         $taxes = $tax_dropdown['tax_rates'];
         $tax_attributes = $tax_dropdown['attributes'];
