@@ -52,5 +52,15 @@
 	            </tbody>
 	     	</table>
      	</div>
+		@if(!empty($product_imeis))
+			<div class="col-md-12">
+				<strong>IMEI Numbers</strong>
+			</div>
+			@foreach($product_imeis as $imeis)
+				<div class="col-md-2">
+					<strong>{{ $loop->index+1 }}.</strong> IMEI-1: {{$imeis->imei1 ?? '---'}}<br/>&emsp; IMEI-2: {{$imeis->imei2 ?? '---'}}
+				</div>
+			@endforeach
+		@endif
     </div>
 </div>

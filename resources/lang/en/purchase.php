@@ -36,6 +36,7 @@ return [
     'grand_total' => 'Grand Total',
     'add_purchase' => 'Add Purchase',
     'imei_number' => 'IMEI Number',
+    'stock_availability' => 'Stock Availability',
     'purchase_date' => 'Purchase Date',
     'purchase_quantity' => 'Purchase Quantity',
     'unit_cost_before_tax' => 'Unit Cost (Before Tax)',

@@ -62,12 +62,20 @@
                 {!! Form::select('active_state', ['active' => __('business.is_active'), 'inactive' => __('lang_v1.inactive')], null, ['class' => 'form-control select2', 'style' => 'width:100%', 'id' => 'active_state', 'placeholder' => __('lang_v1.all')]); !!}
             </div>
         </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    {!! Form::label('imei_number',  __('purchase.imei_number') . ':') !!}
-                    {!! Form::text('imei_number', null, ['class' => 'form-control', 'placeholder' => __('purchase.imei_number')]); !!}
-                </div>
+        {{--        added by nirjhar--}}
+
+        <div class="col-md-3">
+            <div class="form-group">
+                {!! Form::label('stock_availability',  __('purchase.stock_availability') . ':') !!}
+                {!! Form::select('stock_availability', ['all' => 'All', 'current' => 'Current'], null, ['class' => 'form-control select2', 'style' => 'width:100%']); !!}
             </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                {!! Form::label('imei_number',  __('purchase.imei_number') . ':') !!}
+                {!! Form::text('imei_number', null, ['class' => 'form-control', 'placeholder' => __('purchase.imei_number')]); !!}
+            </div>
+        </div>
         <!-- include module filter -->
         @if(!empty($pos_module_data))
             @foreach($pos_module_data as $key => $value)
@@ -179,6 +187,7 @@
                         d.not_for_selling = $('#not_for_selling').is(':checked');
                         d.location_id = $('#location_id').val();
                         d.imei_number = $('#imei_number').val();
+                        d.stock_availability = $('#stock_availability').val();
                         if ($('#repair_model_id').length == 1) {
                             d.repair_model_id = $('#repair_model_id').val();
                         }
@@ -384,7 +393,7 @@
                 });
             });
 
-            $(document).on('change', '#product_list_filter_type, #product_list_filter_category_id, #product_list_filter_brand_id, #product_list_filter_unit_id, #product_list_filter_tax_id, #location_id, #active_state, #repair_model_id', 
+            $(document).on('change', '#product_list_filter_type, #stock_availability, #product_list_filter_category_id, #product_list_filter_brand_id, #product_list_filter_unit_id, #product_list_filter_tax_id, #location_id, #active_state, #repair_model_id',
                 function() {
                     if ($("#product_list_tab").hasClass('active')) {
                         product_table.ajax.reload();
@@ -471,6 +480,8 @@
                                 d.type = $('#product_list_filter_type').val();
                                 d.active_state = $('#active_state').val();
                                 d.not_for_selling = $('#not_for_selling').is(':checked');
+                                d.imei_number = $('#imei_number').val();
+                                d.stock_availability = $('#stock_availability').val();
                                 if ($('#repair_model_id').length == 1) {
                                     d.repair_model_id = $('#repair_model_id').val();
                                 }

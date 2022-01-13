@@ -114,7 +114,7 @@
 	      			<div class="clearfix"></div>
 	      			<br>
       				<div class="col-sm-12">
-      					{!! $product->product_description !!}
+      					{!! $product->product_description ?? '<h4 class="text-danger m-3">No description Here!!</h4>' !!}
       				</div>
 	      		</div>
       			<div class="col-sm-3 col-md-3 invoice-col">

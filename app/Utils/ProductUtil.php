@@ -1709,11 +1709,13 @@ class ProductUtil extends Util
 
     public function getProductStockDetails($business_id, $filters, $for)
     {
+        //dd($business_id,$filters,$for);
         $query = Variation::join('products as p', 'p.id', '=', 'variations.product_id')
                   ->join('units', 'p.unit_id', '=', 'units.id')
                   ->leftjoin('variation_location_details as vld', 'variations.id', '=', 'vld.variation_id')
                   ->leftjoin('business_locations as l', 'vld.location_id', '=', 'l.id')
                   ->join('product_variations as pv', 'variations.product_variation_id', '=', 'pv.id')
+                ->leftJoin('imeis', 'p.id', '=', 'imeis.product_id')
                   ->where('p.business_id', $business_id)
                   ->whereIn('p.type', ['single', 'variable']);
 
@@ -1830,7 +1832,20 @@ class ProductUtil extends Util
                     AND (PL.variation_id=variations.id)) as total_mfg_stock")
             );
         }
-
+        // added by nirjhar
+        $imei_number = request()->get('imei_number');
+        if (!empty($imei_number)) {
+            $products->where(function($condition) use ($imei_number){
+                $condition->where('imei1', 'like', "%{$imei_number}%");
+                $condition->orWhere('imei2', 'like', "%{$imei_number}%");
+            });
+        }
+        $stock_availability = request()->get('stock_availability');
+        if (!empty($stock_availability) && $stock_availability == 'current') {
+            $products->having('stock', '>', 0);
+        }
+        /**-----------------------------------------**/
+        
         if (!empty($filters['product_id'])) {
             $products->where('p.id', $filters['product_id'])
                     ->groupBy('l.id');

@@ -65,7 +65,7 @@ class ProductController extends Controller
         $selling_price_group_count = SellingPriceGroup::countSellingPriceGroups($business_id);
 
         if (request()->ajax()) {
-            DB::enableQueryLog();
+            //DB::enableQueryLog();
             $query = Product::with(['media'])
                 ->leftJoin('brands', 'products.brand_id', '=', 'brands.id')
                 ->join('units', 'products.unit_id', '=', 'units.id')
@@ -171,19 +171,21 @@ class ProductController extends Controller
             if (!empty(request()->get('repair_model_id'))) {
                 $products->where('products.repair_model_id', request()->get('repair_model_id'));
             }
-    
+            // added by nirjhar
             $imei_number = request()->get('imei_number');
             if (!empty($imei_number)) {
                 $products->where(function($condition) use ($imei_number){
                     $condition->where('imei1', 'like', "%{$imei_number}%");
                     $condition->orWhere('imei2', 'like', "%{$imei_number}%");
-//                    $condition->where('imei1', "{$imei_number}");
-//                    $condition->orWhere('imei2', "{$imei_number}");
                 });
             }
-            //$products->get();
-            //dd(DB::getQueryLog());
-    
+            $stock_availability = request()->get('stock_availability');
+            if (!empty($stock_availability) && $stock_availability == 'current') {
+                $products->having('current_stock', '>', 0);
+            }
+            /*$products->get();
+            dd(DB::getQueryLog());*/
+            // ---nirjhar end
             return Datatables::of($products)
                 ->addColumn(
                     'product_locations',

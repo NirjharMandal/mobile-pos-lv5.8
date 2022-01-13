@@ -12,6 +12,7 @@ use App\Contact;
 
 use App\CustomerGroup;
 use App\ExpenseCategory;
+use App\Imei;
 use App\Product;
 use App\PurchaseLine;
 use App\Restaurant\ResTable;
@@ -290,7 +291,7 @@ class ReportController extends Controller
         if ($request->ajax()) {
 
             $filters = request()->only(['location_id', 'category_id', 'sub_category_id', 'brand_id', 'unit_id', 'tax_id', 'type', 
-                'only_mfg_products', 'active_state',  'not_for_selling', 'repair_model_id', 'product_id', 'active_state']);
+                'only_mfg_products', 'active_state',  'not_for_selling', 'repair_model_id', 'product_id', 'active_state', 'imei_number', 'stock_availability']);
 
             $filters['not_for_selling'] = isset($filters['not_for_selling']) && $filters['not_for_selling'] == 'true' ? 1 : 0;
 
@@ -303,8 +304,8 @@ class ReportController extends Controller
             //To show stock details on view product modal
             if ($for == 'view_product' && !empty(request()->input('product_id'))) {
                 $product_stock_details = $products;
-
-                return view('product.partials.product_stock_details')->with(compact('product_stock_details'));
+                $product_imeis = Imei::where('product_id', request()->input('product_id'))->orderBy('id', 'Desc')->get();
+                return view('product.partials.product_stock_details')->with(compact('product_stock_details', 'product_imeis'));
             }
 
             $datatable =  Datatables::of($products)
